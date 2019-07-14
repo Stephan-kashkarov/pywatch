@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:pywatch-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -285,4 +286,93 @@ Wire Wire Line
 	1750 4650 1900 4650
 Wire Wire Line
 	3050 4600 3050 4500
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5D2B0EF1
+P 2950 4500
+F 0 "#PWR?" H 2950 4350 50  0001 C CNN
+F 1 "+3V3" H 2965 4673 50  0000 C CNN
+F 2 "" H 2950 4500 50  0001 C CNN
+F 3 "" H 2950 4500 50  0001 C CNN
+	1    2950 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 4500 2950 4600
+$Comp
+L Device:Battery_Cell BT?
+U 1 1 5D2B406E
+P 4250 3800
+F 0 "BT?" H 4368 3896 50  0000 L CNN
+F 1 "Battery_Cell" H 4368 3805 50  0000 L CNN
+F 2 "" V 4250 3860 50  0001 C CNN
+F 3 "~" V 4250 3860 50  0001 C CNN
+	1    4250 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Switching:LM27313XMF U?
+U 1 1 5D2B5911
+P 4050 2550
+F 0 "U?" H 4050 2917 50  0000 C CNN
+F 1 "LM27313XMF" H 4050 2826 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 4100 2300 50  0001 L CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm27313.pdf" H 4050 2650 50  0001 C CNN
+	1    4050 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 3300 3600 3300
+Wire Wire Line
+	4250 3300 4250 3600
+Wire Wire Line
+	3600 3300 3600 2650
+Wire Wire Line
+	3600 2450 3750 2450
+Connection ~ 3600 3300
+Wire Wire Line
+	3600 3300 4250 3300
+Wire Wire Line
+	3600 2650 3750 2650
+Connection ~ 3600 2650
+Wire Wire Line
+	3600 2650 3600 2450
+$Comp
+L power:GND #PWR?
+U 1 1 5D2C566B
+P 4050 3050
+F 0 "#PWR?" H 4050 2800 50  0001 C CNN
+F 1 "GND" H 4055 2877 50  0000 C CNN
+F 2 "" H 4050 3050 50  0001 C CNN
+F 3 "" H 4050 3050 50  0001 C CNN
+	1    4050 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3050 4050 2850
+$Comp
+L power:+5V #PWR?
+U 1 1 5D2C86B1
+P 4650 2150
+F 0 "#PWR?" H 4650 2000 50  0001 C CNN
+F 1 "+5V" H 4665 2323 50  0000 C CNN
+F 2 "" H 4650 2150 50  0001 C CNN
+F 3 "" H 4650 2150 50  0001 C CNN
+	1    4650 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 3300 5300 3300
+Wire Wire Line
+	5300 3300 5300 1400
+Wire Wire Line
+	5300 1400 5700 1400
+Connection ~ 4250 3300
+Wire Wire Line
+	1650 4950 1750 4950
+Wire Wire Line
+	1750 4950 1750 4650
+Wire Wire Line
+	750  6150 1050 6150
+Connection ~ 1050 6150
 $EndSCHEMATC
