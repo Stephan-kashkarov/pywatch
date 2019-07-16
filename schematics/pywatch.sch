@@ -1731,4 +1731,83 @@ Wire Wire Line
 Connection ~ 7650 3450
 NoConn ~ 7650 3350
 NoConn ~ 7650 3150
+NoConn ~ -2950 5850
+Wire Notes Line
+	3650 2800 3650 2300
+Wire Notes Line
+	3650 2300 4750 2300
+Wire Notes Line
+	4750 2650 5600 2650
+Wire Notes Line
+	5600 2650 5600 600 
+Wire Notes Line
+	5600 600  550  600 
+Wire Notes Line
+	550  2800 550  600 
+Wire Notes Line
+	2100 2800 2100 4650
+Wire Notes Line
+	2100 4650 3800 4650
+Wire Notes Line
+	550  2800 3800 2800
+Wire Notes Line
+	2100 4300 550  4300
+Wire Notes Line
+	550  4300 550  6850
+Wire Notes Line
+	550  6850 3350 6850
+Wire Notes Line
+	3350 6850 3350 7400
+Wire Notes Line
+	5100 7400 5100 6200
+Wire Notes Line
+	5100 6200 3800 6200
+Wire Notes Line
+	3800 2800 3800 6200
+Wire Notes Line
+	3350 7400 5100 7400
+Wire Notes Line
+	4750 5200 3800 5200
+Wire Notes Line
+	4750 2300 4750 5200
+Wire Notes Line
+	5950 5700 10550 5700
+Wire Notes Line
+	10550 5700 10550 4600
+Wire Notes Line
+	10550 4600 10650 4600
+Wire Notes Line
+	10650 4600 10650 4100
+Wire Notes Line
+	10650 4100 10750 4100
+Wire Notes Line
+	10750 4100 10750 2600
+Wire Notes Line
+	10750 2600 9500 2600
+Wire Notes Line
+	9500 2600 9500 850 
+Wire Notes Line
+	9500 850  5950 850 
+Wire Notes Line
+	5950 850  5950 5700
+Wire Notes Line
+	10150 600  11050 600 
+Wire Notes Line
+	11050 600  11050 2000
+Wire Notes Line
+	11050 2000 10150 2000
+Wire Notes Line
+	10150 2000 10150 600 
+Text Notes 600  900  0    79   ~ 0
+Battery Charge\n& Power Electronics
+Text Notes 2600 4350 0    79   ~ 0
+Flash Memory
+Text Notes 1350 6800 0    79   ~ 0
+USB Interface
+Text Notes 7000 5000 0    79   ~ 0
+Micro Processor
+Text Notes 10150 700  0    79   ~ 0
+Antenna
+Text Notes 3750 2650 0    79   ~ 0
+Screen &\nTouch IO
 $EndSCHEMATC
