@@ -4,8 +4,25 @@
     This file contains the base Component class for Formula
 
 '''
-from Formula.internals import Bitmap
+from Formula.engine import Bitmap
 
+
+class StaticComponent:
+    def __init__(self, **kwargs):
+        self.contents = kwargs.get(contents, {})
+        self.params = kwargs.get(params, {})
+        self.name = kwargs.get(name, "")
+        self.size = kwargs.get(size, None)
+    
+    def bitmap(self):
+        bitmap = Bitmap(self.x, self.y)
+        for component in self.components[self.state]:
+            bitmap.blit(component.bitmap())
+        bitmap.blit(self.render())
+        return bitmap
+
+    def render(self):
+        pass
 
 class Component:
     def __init__(self, **kwargs):
@@ -19,8 +36,8 @@ class Component:
     def bitmap(self):
         bitmap = Bitmap(self.x, self.y)
         for component in self.components[self.state]:
-            bitmap.append(component.render())
-        bitmap.append(self.render())
+            bitmap.blit(component.bitmap())
+        bitmap.blit(self.render())
         return bitmap
 
     def render(self):
