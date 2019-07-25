@@ -4,6 +4,7 @@
     This file contains the base Component class for Formula
 
 '''
+from Formula.internals import Bitmap
 
 
 class Component:
@@ -12,11 +13,18 @@ class Component:
         self.name = kwargs.get(name, "")
         self.hooks = kwargs.get(hooks, {})
         self.state = "init"
+        self.params = kwargs.get(params, {})
+        self.size = kwargs.get(size, None)
+
+    def bitmap(self):
+        bitmap = Bitmap(self.x, self.y)
+        for component in self.components[self.state]:
+            bitmap.append(component.render())
+        bitmap.append(self.render())
+        return bitmap
 
     def render(self):
-        for component in self.components[self.state]:
-            component.render()
-        return self.bitmap()
+        pass
 
     def interact(self, interaction):
         if self.hooks[interaction] is not None:
@@ -24,5 +32,3 @@ class Component:
         else:
             comp = self.get_sub_comp(interaction)
             comp.interact(interaction)
-
-    def self.bitmap()
