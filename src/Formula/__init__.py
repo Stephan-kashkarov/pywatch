@@ -24,6 +24,7 @@ class StaticComponent:
     def render(self):
         pass
 
+
 class Component:
     def __init__(self, **kwargs):
         self.contents = kwargs.get(contents, {})
