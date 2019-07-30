@@ -48,23 +48,23 @@ class Button(Component):
             'init': {
                 
             },
-            'Pressed': {
+            'pressed': {
 
             }
         })
         self.callbacks.update({
-            'Press': self.toggle_pressed(),
+            'press': self.toggle_pressed(),
         })
 
     @engine.change
     def toggle_pressed(self):
-        if self.state = 'Pressed':
+        if self.state = 'pressed':
             self.state = 'init'
             self.contents[0].params.update({
                 'colour': 'grey',
             })
         else:
-            self.state = 'Pressed'
+            self.state = 'pressed'
             self.contents[0].params.update({
                 'colour': 'black',
             })
