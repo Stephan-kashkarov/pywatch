@@ -22,10 +22,8 @@ class Device:
     def interact(self, **kwargs):
         pos = kwargs['pos']
         for c in components:
-            if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.pos[2]:
-                c.interact(
-                    Interaction(**kwargs)
-                )
+            if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
+                c.interact(Interaction(**kwargs))
         
 
 class StaticComponent:
@@ -45,6 +43,14 @@ class StaticComponent:
     def render(self):
         pass
 
+    def interact(self, interaction):
+        if self.hooks[interaction.type] is not None:
+            self.hooks[interaction.type]()
+        pos = interaction.pos
+        for c in components:
+            if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
+                c.interact(interaction)
+     
 
 class Component:
     def __init__(self, **kwargs):
@@ -69,6 +75,7 @@ class Component:
         if self.hooks[interaction.type] is not None:
             self.hooks[interaction.type]()
         else:
-            comp = self.get_sub_comp(interaction)
-            if comp:
-                comp.interact(interaction)
+            pos = interaction.pos
+            for c in components:
+                if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
+                    c.interact(interaction)
