@@ -12,6 +12,7 @@ class Device:
         self.engine = engine
         self.components = kwargs.get('components', [])
         self.name = kwargs.get('name', "")
+        self.order_components()
 
     def update(self):
         bitmap = Bitmap(size=self.engine.size)
@@ -24,6 +25,21 @@ class Device:
         for c in components:
             if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
                 c.interact(Interaction(**kwargs))
+
+    def order_components(self):
+        y = 0
+        x = 0
+        height = self.size[0]
+        width = self.size[1]
+        for component in self.components:
+            if component.size[0]:
+                height -= component.size[0]
+
+        for component in self.components:
+            component.pos = [y, x]
+            if not component.size:
+                component.size = [int(height/len(self.components)), width]
+            y += component.size[0]
 
 
 class StaticComponent:
@@ -54,6 +70,21 @@ class StaticComponent:
         for c in components:
             if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
                 c.interact(interaction)
+
+    def order_components(self):
+        y = 0
+        x = 0
+        height = self.size[0]
+        width = self.size[1]
+        for component in self.components:
+            if component.size[0]:
+                height -= component.size[0]
+
+        for component in self.components:
+            component.pos = [y, x]
+            if not component.size:
+                component.size = [int(height/len(self.components)), width]
+            y += component.size[0]
 
 
 class Component:
@@ -89,8 +120,16 @@ class Component:
                     c.interact(interaction)
 
     def order_components(self):
-        x = 0
         y = 0
+        x = 0
+        height = self.size[0]
+        width = self.size[1]
+        for component in self.components:
+            if component.size[0]:
+                height -= component.size[0]
+
         for component in self.components:
             component.pos = [y, x]
+            if not component.size:
+                component.size = [int(height/len(self.components)), width]
             y += component.size[0]
