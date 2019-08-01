@@ -99,8 +99,16 @@ class Row(StaticComponent):
                     c.interact(interaction)
 
     def order_components(self):
-        x = 0
         y = 0
+        x = 0
+        height = self.size[0]
+        width = self.size[1]
+        for component in self.components:
+            if component.size[1]:
+                height -= component.size[1]
+
         for component in self.components:
             component.pos = [y, x]
+            if not component.size:
+                component.size = [height, int(width/len(self.components))]
             x += component.size[1]

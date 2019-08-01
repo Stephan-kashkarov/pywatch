@@ -10,11 +10,20 @@ from lib import (
     # Touch Displays
 )
 
+# Misc
+color_chart = {
+    'red': "ff 00 00",
+    'green': "00 ff 00",
+    'blue': "00 00 ff",
+    'white': "ff ff ff",
+    'black': "00 00 00"
+}
+
 # Engines
 
 
 class Breadboard:
-    def __init__(self, **kwargs):
+    def __init__(self):
         self.pot = ADC(Pin(0))
         self.x_move = True
         self.cursor = [0, 0]
