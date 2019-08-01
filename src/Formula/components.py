@@ -1,10 +1,10 @@
 from Formula import Component, StaticComponent
-import Formula.engine as engine
 
 
 class Text(StaticComponent):
-    def __init__(self, **kwargs):
+    def __init__(self, device, **kwargs):
         super().__init__(**kwargs)
+        self.device = device
         self.params.update({
             'value': kwargs.get("value", ''),
             'font': kwargs.get("font", 'auto'),
@@ -13,12 +13,13 @@ class Text(StaticComponent):
         })
 
     def render(self):
-        return engine.text(**self.params)
+        return self.device.engine.text(**self.params)
 
 
 class Box(StaticComponent):
-    def __init__(self, **kwargs):
+    def __init__(self, device, **kwargs):
         super().__init__(**kwargs)
+        self.device = device
         self.params.update({
             'line_size': kwargs.get('line_size', 1),
             'colour': kwargs.get('colour', 'grey'),
@@ -26,12 +27,13 @@ class Box(StaticComponent):
         })
 
     def render(self):
-        return engine.rect(**self.size, **self.params)
+        return self.device.engine.rect(**self.size, **self.params)
 
 
 class Button(Component):
-    def __init__(self, **kwargs):
+    def __init__(self, device, **kwargs):
         super().__init__(**kwargs)
+        self.device = device
         self.contents.extend([
             Box(
                 contents=[
@@ -56,7 +58,7 @@ class Button(Component):
             'press': self.toggle_pressed(),
         })
 
-    @engine.change
+    @self.device.engine.change
     def toggle_pressed(self):
         if self.state = 'pressed':
             self.state = 'init'
