@@ -20,6 +20,8 @@ class Breadboard:
         self.cursor = [0, 0]
         self.spi = SPI(SPI.MASTER, baudrate=20000000, polarity=0, phase=0)
         self.tft = st7735.tft(self.spi, Pin(0), Pin(12))
+        # Interrupt handler
+        Pin(16).irq(handler=self.flags(), trigger=Pin.IRQ_RISING)
 
     def check_input(self):
         self.cursor[int(self.x_move)] = self.pot.read()
@@ -36,6 +38,9 @@ class Breadboard:
         for y, row in bitmap.raw():
             for x, pixel in enumerate(row):
                 self.tft.pixel((y, x), TFTColor(*pixel.split()))
+        
+    def flags(self):
+        self.x_move = not self.x_move
 
 # Core classes
 
@@ -60,3 +65,9 @@ class Bitmap:
         for y in range(pos[0], pos[0] + len(bitmap)):
             for x in range(pos[1], pos[1] + len(bitmap[0])):
                 self.bitmap[y][x] = bitmap[pos[0] - y][pos[1] - x]
+
+
+class Interaction:
+    def __init__(self, **kwargs):
+        self.type = kwargs.get('type')
+        self.pos = kwargs.get('pos')

@@ -11,6 +11,7 @@ class Text(StaticComponent):
             'font_size': kwargs.get("fontsize"),
             'color': kwargs.get("color", 'black'),
         })
+        self.order_components()
 
     def render(self):
         pass
@@ -24,6 +25,7 @@ class Box(StaticComponent):
             'color': kwargs.get('color', 'black'),
             'fill': kwargs.get('fill', True),
         })
+        self.order_components()
 
     def render(self):
         if fill:
@@ -63,6 +65,7 @@ class Button(Component):
         self.callbacks.update({
             'press': self.toggle_pressed(),
         })
+        self.order_components()
 
     def toggle_pressed(self):
         self.changes = True
@@ -84,3 +87,20 @@ class Button(Component):
 class Row(StaticComponent):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.order_components()
+
+    def interact(self, interaction):
+        if self.hooks[interaction.type] is not None:
+            self.hooks[interaction.type]()
+        else:
+            pos = interaction.pos
+            for c in components:
+                if c.pos[1] <= pos[1] and pos[1] <= c.pos[1] + c.size[1]:
+                    c.interact(interaction)
+
+    def order_components(self):
+        x = 0
+        y = 0
+        for component in self.components:
+            component.pos = [y, x]
+            x += component.size[1]

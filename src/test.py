@@ -26,5 +26,6 @@ device = f.Device(Breadboard(), components=[
 ])
 
 while True:
-    device.render()
-    device.interact()
+    device.update()
+    if device.engine.interaction:
+        device.interact(type='press', pos=device.engine.pos)

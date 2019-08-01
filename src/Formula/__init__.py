@@ -16,8 +16,7 @@ class Device:
     def update(self):
         bitmap = Bitmap(size=self.engine.size)
         for component in components:
-            # TODO: Make pos calc
-            bitmap.add(component.bitmap(), pos=)
+            bitmap.add(component.bitmap(), pos=component.pos)
         self.engine.show_bitmap(bitmap)
 
     def interact(self, **kwargs):
@@ -34,6 +33,7 @@ class StaticComponent:
         self.name = kwargs.get(name, "")
         self.size = kwargs.get(size, None)
         self.changes = True
+        self.pos = None
 
     def bitmap(self):
         bitmap = Bitmap(size=self.size)
@@ -58,12 +58,13 @@ class StaticComponent:
 
 class Component:
     def __init__(self, **kwargs):
-        self.components = kwargs.get(components, {})
+        self.components = kwargs.get(components, [])
         self.name = kwargs.get(name, "")
         self.hooks = kwargs.get(hooks, {})
         self.state = "init"
         self.params = kwargs.get(params, {})
         self.size = kwargs.get(size, None)
+        self.pos = None
         self.changes = True
 
     def bitmap(self):
@@ -86,3 +87,10 @@ class Component:
             for c in components:
                 if c.pos[0] <= pos[0] and pos[0] <= c.pos[0] + c.size[0]:
                     c.interact(interaction)
+
+    def order_components(self):
+        x = 0
+        y = 0
+        for component in self.components:
+            component.pos = [y, x]
+            y += component.size[0]
