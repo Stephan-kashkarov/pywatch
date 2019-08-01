@@ -53,8 +53,10 @@ class Bitmap:
                 self.map.append([])
                 for _ in range(self.size[1]):
                     self.map[y].append("00 00 00")
-    
+
     def add(self, bitmap, pos):
+        if not bitmap:
+            return
         for y in range(pos[0], pos[0] + len(bitmap)):
             for x in range(pos[1], pos[1] + len(bitmap[0])):
                 self.bitmap[y][x] = bitmap[pos[0] - y][pos[1] - x]

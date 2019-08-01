@@ -29,14 +29,17 @@ class Device:
 
 class StaticComponent:
     def __init__(self, **kwargs):
-        self.contents = kwargs.get(contents, {})
+        self.components = kwargs.get(components, {})
         self.params = kwargs.get(params, {})
         self.name = kwargs.get(name, "")
         self.size = kwargs.get(size, None)
+        self.changes = True
 
     def bitmap(self):
         bitmap = Bitmap(size=self.size)
-        bitmap.add(self.render())
+        if self.changes:
+            bitmap.add(self.render())
+            self.changes = False
         for component in self.components[self.state]:
             bitmap.add(component.bitmap())
         return bitmap
@@ -55,16 +58,19 @@ class StaticComponent:
 
 class Component:
     def __init__(self, **kwargs):
-        self.contents = kwargs.get(contents, {})
+        self.components = kwargs.get(components, {})
         self.name = kwargs.get(name, "")
         self.hooks = kwargs.get(hooks, {})
         self.state = "init"
         self.params = kwargs.get(params, {})
         self.size = kwargs.get(size, None)
+        self.changes = True
 
     def bitmap(self):
         bitmap = Bitmap(size=self.size)
-        bitmap.add(self.render())
+        if self.changes:
+            bitmap.add(self.render())
+            self.changes = False
         for component in self.components[self.state]:
             bitmap.add(component.bitmap())
         return bitmap

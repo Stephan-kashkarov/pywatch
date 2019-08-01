@@ -1,42 +1,48 @@
 from Formula import Component, StaticComponent
+from Formula.engine import Bitmap, color_chart
 
 
 class Text(StaticComponent):
-    def __init__(self, device, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.device = device
         self.params.update({
             'value': kwargs.get("value", ''),
             'font': kwargs.get("font", 'auto'),
             'font_size': kwargs.get("fontsize"),
-            'colour': kwargs.get("colour", 'black'),
+            'color': kwargs.get("color", 'black'),
         })
 
     def render(self):
-        return self.device.engine.text(**self.params)
+        pass
 
 
 class Box(StaticComponent):
-    def __init__(self, device, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.device = device
         self.params.update({
             'line_size': kwargs.get('line_size', 1),
-            'colour': kwargs.get('colour', 'grey'),
-            'fill': kwargs.get('fill', False),
+            'color': kwargs.get('color', 'black'),
+            'fill': kwargs.get('fill', True),
         })
 
     def render(self):
-        return self.device.engine.rect(**self.size, **self.params)
+        if fill:
+            self.bitmap = []
+            for y in range(self.size[0]):
+                self.bitmap.append([])
+                for x in range(self.size[1]):
+                    self.bitmap[y].append(color_chart[self.params.color])
+            self.bitmap = Bitmap(map=self.bitmap)
+        else:
+            pass
 
 
 class Button(Component):
-    def __init__(self, device, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.device = device
-        self.contents.extend([
+        self.components.extend([
             Box(
-                contents=[
+                components=[
                     Text(
                         **kwargs.get('Text', {
                             'value': "Button",
@@ -58,15 +64,23 @@ class Button(Component):
             'press': self.toggle_pressed(),
         })
 
-    @self.device.engine.change
     def toggle_pressed(self):
+        self.changes = True
         if self.state = 'pressed':
             self.state = 'init'
-            self.contents[0].params.update({
-                'colour': 'grey',
+            self.components[0].params.update({
+                'color': 'grey',
             })
         else:
             self.state = 'pressed'
-            self.contents[0].params.update({
-                'colour': 'black',
+            self.components[0].params.update({
+                'color': 'black',
             })
+
+    def render():
+        return None
+    
+
+class Row(StaticComponent):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
